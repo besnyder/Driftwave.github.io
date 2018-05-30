@@ -185,36 +185,41 @@
 
 		// Events.
 		// Note: If you're *not* using AJAX, get rid of this event listener.
-		// $form.addEventListener('submit', function(event) {
-		// 	event.stopPropagation()
-		// 	event.preventDefault()
+		$form.addEventListener('submit', function(event) {
+			event.stopPropagation()
+			event.preventDefault()
 
-		// 	// Hide message.
-		// 	$message._hide()
+			// Hide message.
+			$message._hide()
 
-		// 	// Disable submit.
-		// 	$submit.disabled = true
+			// Disable submit.
+			$submit.disabled = true
 
-		// 	// Process form.
-		// 	// Note: Doesn't actually do anything yet (other than report back with a "thank you"),
-		// 	// but there's enough here to piece together a working AJAX submission call that does.
-		// 	window.setTimeout(function() {
-		// 		// send data
-		// 		var $data = new FormData($form)
-		// 		var $request = new XMLHttpRequest()
-		// 		$request.open('POST', 'https://formspree.io/email@domain.com', true)
-		// 		$request.send($data)
+			// Process form.
+			// Note: Doesn't actually do anything yet (other than report back with a "thank you"),
+			// but there's enough here to piece together a working AJAX submission call that does.
+			window.setTimeout(function() {
+				var name = $form.name.value
+				var email = $form.email.value
 
-		// 		// Reset form.
-		// 		$form.reset()
+				var url = 'https://script.google.com/a/driftwave.ai/macros/s/AKfycbwcCfq43Anpkye3DS_GtTfgqj94jarWTGTI-30Alw/exec'
+				url += '?name=' + encodeURIComponent(name)
+				url += '&email=' + encodeURIComponent(email)
 
-		// 		// Enable submit.
-		// 		$submit.disabled = false
+				fetch(url, { method: 'GET'} )
+					.then(function(response) { console.log('Success!', response)})
+					.catch(function(error) { console.error('Error!', error.message)})
 
-		// 		// Show message.
-		// 		$message._show('success', 'Thank you!')
-		// 		//$message._show('failure', 'Something went wrong. Please try again.');
-		// 	}, 750)
-		// })
+				// Reset form.
+				$form.reset()
+
+				// Enable submit.
+				$submit.disabled = false
+
+				// Show message.
+				$message._show('success', 'Thank you!')
+				//$message._show('failure', 'Something went wrong. Please try again.');
+			}, 750)
+		})
 	})()
 })()
